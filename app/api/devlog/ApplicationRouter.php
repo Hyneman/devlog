@@ -20,42 +20,15 @@
 //
 
 namespace devlog {
-	use \DirectoryIterator as DirectoryIterator;
 	use \flight\Engine as FlightEngine;
 
-	class ApplicationController {
+	class ApplicationRouter {
 		private $config;
 		private $flight;
-		private $router;
 
-		public function __construct(array $config) {
+		public function __construct(array $config, FlightEngine $flight) {
 			$this->config = $config;
-			$this->flight = new FlightEngine();
-			$this->router = new ApplicationRouter($this->config, $this->flight);
-			$this->loadRoutes();
-		}
-
-		private function isRouteFile($filename) {
-			$suffix = 'Route.php';
-			return (substr($filename, -strlen($suffix)) === $suffix);
-		}
-
-		private function loadRoutes() {
-			$directory = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'routes';
-			$iterator = new DirectoryIterator($directory);
-
-			foreach($iterator as $file) {
-				$filename = $iterator->getFilename();
-
-				if($file->isDot() || !$this->isRouteFile($filename))
-					continue;
-
-				$route = function($devlog, $__filename) {
-					require_once $__filename;
-				};
-
-				$route($this->router, $directory . DIRECTORY_SEPARATOR . $filename);
-			}
+			$this->flight = $flight;
 		}
 
 		public function config($name = '') {
@@ -65,10 +38,29 @@ namespace devlog {
 			return $this->config[$name];
 		}
 
-		public function service() {
-			$this->flight->start();
+		public function route($url, $type, callable $callable) {
+			header('Content-Type: ' . $type);
+			$this->flight->route($url, $callable);
 		}
-	} // class ApplicationController
+
+		public function json($code, $content) {
+			$json = json_encode($content,
+				$this->config('mode') === 'dev' ? JSON_PRETTY_PRINT : 0);
+
+			if($json === false)
+				$this->error(500);
+
+			$this->flight->response(false)
+				->status($code)
+				->header('Content-Type', 'application/json')
+				->write($json)
+				->send();
+		}
+
+		public function error($code, $message = '') {
+			$this->flight->halt($code, $message);
+		}
+	} // class ApplicationRouter
 } // namespace devlog
 
 ?>

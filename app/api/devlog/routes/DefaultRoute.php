@@ -19,15 +19,11 @@
 //// ALONG WITH DEV/LOG. IF NOT, SEE <http://www.gnu.org/licenses/>.
 //
 
-require_once './vendor/autoload.php';
-require_once './devlog/autoload.php';
-
-$devlog = new devlog\ApplicationController(array(
-	'name' => 'devlog',
-	'version' => '0.1',
-	'mode' => 'dev'
-));
-
-$devlog->service();
+$devlog->route('GET /', 'application/json', function() use ($devlog) {
+	$devlog->json(200, array(
+		'name' => $devlog->config('name'),
+		'version' => $devlog->config('version')
+	));
+});
 
 ?>
