@@ -19,13 +19,10 @@
 //// ALONG WITH DEV/LOG. IF NOT, SEE <http://www.gnu.org/licenses/>.
 //
 
-require_once './vendor/autoload.php';
-require_once './devlog/autoload.php';
-
-$devlog = new devlog\ApplicationController(array(
-	'mode' => 'dev'
-));
-
-$devlog->service();
+function devlog_autoloader($class) {
+	if(strpos($class, 'devlog') === 0)
+		require_once(str_replace("\\", DIRECTORY_SEPARATOR, $class) . ".php");
+}
+spl_autoload_register('devlog_autoloader', true);
 
 ?>

@@ -19,13 +19,31 @@
 //// ALONG WITH DEV/LOG. IF NOT, SEE <http://www.gnu.org/licenses/>.
 //
 
-require_once './vendor/autoload.php';
-require_once './devlog/autoload.php';
+namespace devlog {
+	use \flight\Engine as Flight;
 
-$devlog = new devlog\ApplicationController(array(
-	'mode' => 'dev'
-));
+	class ApplicationController {
+		private $config;
+		private $flight;
 
-$devlog->service();
+		public function __construct($config) {
+			$this->config = $config;
+			$this->flight = new Flight();
+			$this->loadRoutes();
+		}
+
+		public function service() {
+			$this->flight->start();
+		}
+
+		private function loadRoutes() {
+			$this->flight->route('GET /', function() {
+				header('Access-Control-Allow-Origin: *');
+				header('Content-Type: application/json');
+				echo '{ "app" : "devlog" }';
+			});
+		}
+	}
+} // namespace devlog
 
 ?>
