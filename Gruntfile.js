@@ -226,28 +226,34 @@ module.exports = function (grunt) {
 			}
 		},
 		replace: {
-		  app: {
-			options: {
-			  variables: {
-				ember: 'bower_components/ember/ember.js',
-				ember_data: 'bower_components/ember-data/ember-data.js'
-			  }
+			app: {
+				options: {
+					variables: {
+					ember: 'bower_components/ember/ember.js',
+					ember_data: 'bower_components/ember-data/ember-data.js',
+					devlog_config: 'config-dev.js'
+				}
+				},
+				files: [
+					{
+						src: '<%= yeoman.app %>/index.html', dest: '.tmp/index.html'
+					}
+				]
 			},
-			files: [
-			  {src: '<%= yeoman.app %>/index.html', dest: '.tmp/index.html'}
-			]
-		  },
-		  dist: {
-			options: {
-			  variables: {
-				ember: 'bower_components/ember/ember.prod.js',
-				ember_data: 'bower_components/ember-data/ember-data.prod.js'
-			  }
-			},
-			files: [
-			  {src: '<%= yeoman.app %>/index.html', dest: '.tmp/index.html'}
-			]
-		  }
+			dist: {
+				options: {
+					variables: {
+						ember: 'bower_components/ember/ember.prod.js',
+						ember_data: 'bower_components/ember-data/ember-data.prod.js',
+						devlog_config: 'config-dist.js'
+					}
+				},
+				files: [
+					{
+						src: '<%= yeoman.app %>/index.html', dest: '.tmp/index.html'
+					}
+				]
+			}
 		},
 		copy: {
 			api: {
