@@ -38,6 +38,13 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		yeoman: yeomanConfig,
 		watch: {
+			api: {
+				files: '<%= yeoman.app %>/api/**/**',
+				tasks: [
+					'copy:api',
+					'shell:deployApi'
+				]
+			},
 			emberTemplates: {
 				files: '<%= yeoman.app %>/templates/**/*.hbs',
 				tasks: ['emberTemplates']
@@ -255,6 +262,16 @@ module.exports = function (grunt) {
 				]
 			}
 		},
+		shell: {
+			deployApi: {
+				command: 'composer install && rm composer.json composer.lock',
+				options: {
+					execOptions: {
+						cwd: '<%= yeoman.dist %>/api/'
+					}
+				}
+			}
+		},
 		copy: {
 			api: {
 				files: [
@@ -264,7 +281,9 @@ module.exports = function (grunt) {
 						cwd: '<%= yeoman.app %>/api/',
 						dest: '<%= yeoman.dist %>/api/',
 						src: [
-							'**/**'
+							'**/**',
+							'!**/*.gitignore',
+							'!vendor/**'
 						]
 					}
 				]
@@ -385,7 +404,8 @@ module.exports = function (grunt) {
 		'uglify',
 		'copy',
 		'rev',
-		'usemin'
+		'usemin',
+		'shell:deployApi'
 	]);
 
 	grunt.registerTask('default', [

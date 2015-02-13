@@ -19,7 +19,16 @@
 //// ALONG WITH DEV/LOG. IF NOT, SEE <http://www.gnu.org/licenses/>.
 //
 
+require './vendor/autoload.php';
+
+header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
-echo '{ "application" : "dev/log" }';
+
+$devlog = new flight\Engine();
+$devlog->route('GET /', function() {
+	echo '{ "app" : "devlog" }';
+});
+
+$devlog->start();
 
 ?>
