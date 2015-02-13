@@ -22,12 +22,8 @@
 require_once './vendor/autoload.php';
 require_once './devlog/autoload.php';
 
-$devlog = new devlog\ApplicationController(array(
-	'name' => 'devlog',
-	'version' => '0.1',
-	'mode' => 'dev'
-));
-
+$config = json_decode(file_get_contents('devlog.json'), true);
+$devlog = new devlog\ApplicationController($config);
 $devlog->service();
 
 ?>
