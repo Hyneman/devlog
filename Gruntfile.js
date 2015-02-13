@@ -250,6 +250,19 @@ module.exports = function (grunt) {
 		  }
 		},
 		copy: {
+			api: {
+				files: [
+					{
+						expand: true,
+						dot: true,
+						cwd: '<%= yeoman.app %>/api/',
+						dest: '<%= yeoman.dist %>/api/',
+						src: [
+							'**/**'
+						]
+					}
+				]
+			},
 			fonts: {
 				files: [
 					{
@@ -263,7 +276,7 @@ module.exports = function (grunt) {
 						]
 					}
 				]
-			}, 
+			},
 			dist: {
 				files: [
 					{
