@@ -35,10 +35,15 @@ module.exports = function (grunt) {
 		dist: 'dist'
 	};
 
-	grunt.loadNpmTasks('grunt-concat-json');
 	grunt.initConfig({
 		yeoman: yeomanConfig,
 		watch: {
+			config: {
+				files: '<%= yeoman.app %>/config/**/**',
+				tasks: [
+					'copy:config'
+				]
+			},
 			api: {
 				files: '<%= yeoman.app %>/api/**/**',
 				tasks: [
@@ -283,13 +288,27 @@ module.exports = function (grunt) {
 		mergeJson: {
 			devlogConfig: {
 				src: [
-					'<%= yeoman.app %>/api/devlog.json',
-					'<%= yeoman.app %>/api/devlog-dev.json'
+					'<%= yeoman.app %>/config/devlog.json',
+					'<%= yeoman.app %>/config/devlog-dev.json'
 				],
-				dst: '<%= yeoman.dist %>/api/devlog.json'
+				dst: '<%= yeoman.dist %>/config/devlog.json'
 			}
 		},
 		copy: {
+			config: {
+				files: [
+					{
+						expand: true,
+						dot: true,
+						cwd: '<%= yeoman.app %>/config/',
+						dest: '<%= yeoman.dist %>/config/',
+						src: [
+							'**/**',
+							'!devlog-dev.json',
+						]
+					}
+				]
+			},
 			api: {
 				files: [
 					{
@@ -300,8 +319,7 @@ module.exports = function (grunt) {
 						src: [
 							'**/**',
 							'!**/*.gitignore',
-							'!vendor/**',
-							'!devlog-dev.json',
+							'!vendor/**'
 						]
 					}
 				]
