@@ -41,7 +41,8 @@ module.exports = function (grunt) {
 			config: {
 				files: '<%= yeoman.app %>/config/**/**',
 				tasks: [
-					'copy:config'
+					'copy:config',
+					'mergeJson:devlogConfig'
 				]
 			},
 			api: {
@@ -412,16 +413,34 @@ module.exports = function (grunt) {
 	});
 
 	grunt.registerMultiTask('mergeJson', 'Merge devlog.json and devlog-dev.json fles', function() {
+		var extend = function(target, base) {
+			target = target || {};
+			for(var attribute in base) {
+				var current = base[attribute];
+				switch(typeof current) {
+					case 'object':
+						target[attribute] = extend(target[attribute], current);
+						break;
+					case 'string':
+						target[attribute] = current;
+						break;
+					default:
+						grunt.fail.warn("mergeJson needs to be modified in order to"
+							+ " support JSON types other than 'string' and 'object'.");
+				}
+			}
+			return target;
+		};
+
+		grunt.log.writeln('Merging ' + JSON.stringify(this.data.src)
+			+ ' into ' + "'" + this.data.dst + "'.");
+
 		var json = {};
 		for(var file in this.data.src) {
 			var current = grunt.file.readJSON(this.data.src[file]);
-			for(var attribute in current) {
-				if(typeof current[attribute] !== 'string')
-					grunt.fail.warn('mergeJson needs to be modified to support multi-level JSON files.');
-
-				json[attribute] = current[attribute];
-			}
+			extend(json, current);
 		}
+
 		grunt.file.write(this.data.dst, JSON.stringify(json, null, '\t'));
 	});
 
