@@ -35,6 +35,7 @@ module.exports = function (grunt) {
 		dist: 'dist'
 	};
 
+	grunt.loadNpmTasks('grunt-concat-json');
 	grunt.initConfig({
 		yeoman: yeomanConfig,
 		watch: {
@@ -257,7 +258,8 @@ module.exports = function (grunt) {
 				},
 				files: [
 					{
-						src: '<%= yeoman.app %>/index.html', dest: '.tmp/index.html'
+						src: '<%= yeoman.app %>/index.html',
+						dest: '.tmp/index.html'
 					}
 				]
 			}
@@ -272,6 +274,15 @@ module.exports = function (grunt) {
 				}
 			}
 		},
+		mergeJson: {
+			devlogConfig: {
+				src: [
+					'<%= yeoman.app %>/api/devlog.json',
+					'<%= yeoman.app %>/api/devlog-dev.json'
+				],
+				dst: '<%= yeoman.dist %>/api/devlog.json'
+			}
+		},
 		copy: {
 			api: {
 				files: [
@@ -283,7 +294,8 @@ module.exports = function (grunt) {
 						src: [
 							'**/**',
 							'!**/*.gitignore',
-							'!vendor/**'
+							'!vendor/**',
+							'!devlog-dev.json',
 						]
 					}
 				]
@@ -362,6 +374,20 @@ module.exports = function (grunt) {
 		}
 	});
 
+	grunt.registerMultiTask('mergeJson', 'Merge devlog.json and devlog-dev.json fles', function() {
+		var json = {};
+		for(var file in this.data.src) {
+			var current = grunt.file.readJSON(this.data.src[file]);
+			for(var attribute in current) {
+				if(typeof current[attribute] !== 'string')
+					grunt.fail.warn('mergeJson needs to be modified to support multi-level JSON files.');
+
+				json[attribute] = current[attribute];
+			}
+		}
+		grunt.file.write(this.data.dst, JSON.stringify(json, null, '\t'));
+	});
+
 	grunt.registerTask('server', function (target) {
 		grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
 		grunt.task.run(['serve:' + target]);
@@ -378,6 +404,7 @@ module.exports = function (grunt) {
 			'concurrent:server',
 			'neuter:app',
 			'copy:fonts',
+			'mergeJson:devlogConfig',
 			'connect:livereload',
 			'open',
 			'watch'
