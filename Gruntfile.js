@@ -46,6 +46,12 @@ module.exports = function (grunt) {
 					'shell:deployApi'
 				]
 			},
+			install: {
+				files: '<%= yeoman.app %>/install/**/**',
+				tasks: [
+					'copy:install'
+				]
+			},
 			emberTemplates: {
 				files: '<%= yeoman.app %>/templates/**/*.hbs',
 				tasks: ['emberTemplates']
@@ -296,6 +302,19 @@ module.exports = function (grunt) {
 							'!**/*.gitignore',
 							'!vendor/**',
 							'!devlog-dev.json',
+						]
+					}
+				]
+			},
+			install : {
+				files: [
+					{
+						expand: true,
+						dot: true,
+						cwd: '<%= yeoman.app %>/install/',
+						dest: '<%= yeoman.dist %>/install/',
+						src: [
+							'**/**'
 						]
 					}
 				]
