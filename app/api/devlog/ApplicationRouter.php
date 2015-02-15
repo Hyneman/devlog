@@ -58,6 +58,12 @@ namespace devlog {
 		}
 
 		public function error($code, $message = '') {
+			if(empty($message)) {
+				$filename = DEVLOG_ERRORS . DEVLOG_SLASH . $code;
+				if(file_exists($filename))
+					$message = file_get_contents($filename);
+			}
+
 			$this->flight->halt($code, $message);
 		}
 	} // class ApplicationRouter

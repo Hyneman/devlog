@@ -32,7 +32,14 @@ namespace devlog {
 			$this->config = $config;
 			$this->flight = new FlightEngine();
 			$this->router = new ApplicationRouter($this->config, $this->flight);
+			$this->overrideNotFound();
 			$this->loadRoutes();
+		}
+
+		private function overrideNotFound() {
+			$this->flight->map('notFound', function() {
+				require DEVLOG_ERRORS . DEVLOG_SLASH . '404';
+			});
 		}
 
 		private function isRouteFile($filename) {
@@ -41,8 +48,7 @@ namespace devlog {
 		}
 
 		private function loadRoutes() {
-			$directory = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'routes';
-			$iterator = new DirectoryIterator($directory);
+			$iterator = new DirectoryIterator(DEVLOG_ROUTES);
 
 			foreach($iterator as $file) {
 				$filename = $iterator->getFilename();
@@ -54,7 +60,7 @@ namespace devlog {
 					require_once $__filename;
 				};
 
-				$route($this->router, $directory . DIRECTORY_SEPARATOR . $filename);
+				$route($this->router, DEVLOG_ROUTES . DEVLOG_SLASH . $filename);
 			}
 		}
 

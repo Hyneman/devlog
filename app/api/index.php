@@ -19,6 +19,12 @@
 //// ALONG WITH DEV/LOG. IF NOT, SEE <http://www.gnu.org/licenses/>.
 //
 
+define('DEVLOG_TIMESTAMP', microtime(true));
+define('DEVLOG_SLASH', DIRECTORY_SEPARATOR);
+define('DEVLOG_BASE', dirname(__FILE__) . DIRECTORY_SEPARATOR . 'devlog');
+define('DEVLOG_ROUTES', DEVLOG_BASE . DIRECTORY_SEPARATOR . 'routes');
+define('DEVLOG_ERRORS', DEVLOG_BASE . DIRECTORY_SEPARATOR . 'errors');
+
 require_once './vendor/autoload.php';
 require_once './devlog/autoload.php';
 
