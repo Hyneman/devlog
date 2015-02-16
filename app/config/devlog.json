@@ -1,6 +1,6 @@
 {
 	"devlog": {
-		"name": "devlog",
+		"api": "devlog",
 		"version": "0.1",
 		"mode": "dist"
 	}
