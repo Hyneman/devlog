@@ -26,7 +26,6 @@ define('DEVLOG_ROUTES', DEVLOG_BASE . DIRECTORY_SEPARATOR . 'routes');
 define('DEVLOG_ERRORS', DEVLOG_BASE . DIRECTORY_SEPARATOR . 'errors');
 
 require_once './vendor/autoload.php';
-require_once './devlog/autoload.php';
 
 $config = \devlog\json\JsonConfig::fromFile('../config/devlog.json');
 $devlog = new devlog\ApplicationController($config);

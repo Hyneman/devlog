@@ -2,5 +2,8 @@
 	"require": {
 		"mikecao/flight": "~1.2",
 		"catfan/medoo": "0.9.*"
+	},
+	"autoload": {
+		"psr-4": {"devlog\\": "devlog/"}
 	}
 }
