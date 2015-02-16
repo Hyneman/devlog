@@ -2,6 +2,7 @@
 	"devlog": {
 		"mode": "dev",
 		"database": {
+			"name": "devlog",
 			"user": "devlog",
 			"password": "devlog"
 		}
