@@ -1,7 +1,9 @@
 {
-	"mode": "dev",
-	"database": {
-		"user": "devlog",
-		"password": "devlog"
+	"devlog": {
+		"mode": "dev",
+		"database": {
+			"user": "devlog",
+			"password": "devlog"
+		}
 	}
 }

@@ -28,7 +28,7 @@ define('DEVLOG_ERRORS', DEVLOG_BASE . DIRECTORY_SEPARATOR . 'errors');
 require_once './vendor/autoload.php';
 require_once './devlog/autoload.php';
 
-$config = json_decode(file_get_contents('../config/devlog.json'), true);
+$config = devlog\json\JsonConfig::fromFile('../config/devlog.json');
 $devlog = new devlog\ApplicationController($config);
 $devlog->service();
 

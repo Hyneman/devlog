@@ -1,5 +1,7 @@
 {
-	"name": "devlog",
-	"version": "0.1",
-	"mode": "dist"
+	"devlog": {
+		"name": "devlog",
+		"version": "0.1",
+		"mode": "dist"
+	}
 }

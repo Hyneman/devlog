@@ -22,13 +22,14 @@
 namespace devlog {
 	use \DirectoryIterator as DirectoryIterator;
 	use \flight\Engine as FlightEngine;
+	use \devlog\json\JsonConfig as JsonConfig;
 
 	class ApplicationController {
 		private $config;
 		private $flight;
 		private $router;
 
-		public function __construct(array $config) {
+		public function __construct(JsonConfig $config) {
 			$this->config = $config;
 			$this->flight = new FlightEngine();
 			$this->router = new ApplicationRouter($this->config, $this->flight);
@@ -64,11 +65,8 @@ namespace devlog {
 			}
 		}
 
-		public function config($name = '') {
-			if(!isset($this->config[$name]))
-				return '';
-
-			return $this->config[$name];
+		public function config($name) {
+			return $this->config->get($name);
 		}
 
 		public function service() {

@@ -21,8 +21,8 @@
 
 $devlog->route('GET /', 'application/json', function() use ($devlog) {
 	$devlog->json(200, [
-		'name' => $devlog->config('name'),
-		'version' => $devlog->config('version')
+		'name' => $devlog->config('devlog.name'),
+		'version' => $devlog->config('devlog.version')
 	]);
 });
 

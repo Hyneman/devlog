@@ -21,21 +21,19 @@
 
 namespace devlog {
 	use \flight\Engine as FlightEngine;
+	use \devlog\json\JsonConfig as JsonConfig;
 
 	class ApplicationRouter {
 		private $config;
 		private $flight;
 
-		public function __construct(array $config, FlightEngine $flight) {
+		public function __construct(JsonConfig $config, FlightEngine $flight) {
 			$this->config = $config;
 			$this->flight = $flight;
 		}
 
-		public function config($name = '') {
-			if(!isset($this->config[$name]))
-				return '';
-
-			return $this->config[$name];
+		public function config($name) {
+			return $this->config->get($name);
 		}
 
 		public function route($url, $type, callable $callable) {
@@ -45,7 +43,7 @@ namespace devlog {
 
 		public function json($code, $content) {
 			$json = json_encode($content,
-				$this->config('mode') === 'dev' ? JSON_PRETTY_PRINT : 0);
+				$this->config('devlog.mode') === 'dev' ? JSON_PRETTY_PRINT : 0);
 
 			if($json === false)
 				$this->error(500);
