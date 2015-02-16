@@ -2,6 +2,14 @@
 	"devlog": {
 		"api": "devlog",
 		"version": "0.1",
-		"mode": "dist"
+		"mode": "dist",
+		"database": {
+			"type": "mysql",
+			"server": "localhost",
+			"port": "",
+			"name": "",
+			"user": "",
+			"password": ""
+		}
 	}
 }
