@@ -36,4 +36,13 @@ $database = new medoo([
 	'password' => $config->get('devlog.database.password')
 ]);
 
+$setup = \devlog\database\DatabaseSetup::fromFile('./setup/setup.xml');
+$setup->setArguments([
+	'table-prefix' => 'devlog'
+]);
+
+$setup->execute('mysql', function($query) use ($database) {
+	return $database->query($query);
+});
+
 ?>
