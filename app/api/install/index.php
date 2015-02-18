@@ -19,6 +19,21 @@
 //// ALONG WITH DEV/LOG. IF NOT, SEE <http://www.gnu.org/licenses/>.
 //
 
-echo 'Install: dev/log.';
+require '../vendor/autoload.php';
+
+$config = \devlog\json\JsonConfig::fromFile('../../config/devlog.json');
+if($config->get('devlog.database.type') !== 'mysql') {
+	die('dev/log currently only supports MySQL.');
+}
+
+$database = new medoo([
+	'charset' => 'utf8',
+	'database_type' => $config->get('devlog.database.type'),
+	'port' => $config->get('devlog.database.port'),
+	'server' => $config->get('devlog.database.server'),
+	'database_name' => $config->get('devlog.database.name'),
+	'username' => $config->get('devlog.database.user'),
+	'password' => $config->get('devlog.database.password')
+]);
 
 ?>
