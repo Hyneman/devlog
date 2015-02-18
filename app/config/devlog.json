@@ -4,6 +4,7 @@
 		"version": "0.1",
 		"mode": "dist",
 		"database": {
+			"charset": "utf-8",
 			"type": "mysql",
 			"server": "localhost",
 			"port": "",

@@ -27,7 +27,7 @@ if($config->get('devlog.database.type') !== 'mysql') {
 }
 
 $database = new medoo([
-	'charset' => 'utf8',
+	'charset' => $config->get('devlog.database.charset'),
 	'database_type' => $config->get('devlog.database.type'),
 	'port' => $config->get('devlog.database.port'),
 	'server' => $config->get('devlog.database.server'),
