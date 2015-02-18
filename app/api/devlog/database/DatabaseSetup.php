@@ -50,6 +50,17 @@ namespace devlog\database {
 			return true;
 		}
 
+		private function getQueries($type) {
+			$database = $this->xml->xpath("/database-setup/database[@type='$type']");
+			if(empty($database))
+				throw new LogicException("Database type '$type' has not been specified.");
+
+			if(count($database) !== 1)
+				throw new LogicException("Database type '$type' must only be specified once.");
+
+			return $database[0]->xpath('statements/query');
+		}
+
 		private function prepareQuery($query) {
 			foreach($this->arguments as $name => $value) {
 				$query = str_replace("[[@$name@]]", $value, $query);
@@ -67,7 +78,7 @@ namespace devlog\database {
 
 		public function execute($type, callable $callable) {
 			$this->checkArguments();
-			$queries = $this->xml->xpath("/database-setup/database[@type='$type']/statements/query");
+			$queries = $this->getQueries($type);
 			foreach($queries as $current) {
 				$current = $this->prepareQuery($current);
 				if(!$callable($current))
