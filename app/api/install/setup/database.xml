@@ -30,9 +30,12 @@
 						`id` int(10) unsigned not null auto_increment,
 						`email` varchar(32) not null,
 						`password` char(64) not null,
-						`name` varchar(32) not null,
+						`first_name` varchar(32) not null,
+						`last_name` varchar(32) not null,
 						`created_on` datetime not null,
 						`modified_on` datetime not null,
+						`admin` boolean not null,
+						`email_notify` boolean not null,
 						PRIMARY KEY (`id`),
 						UNIQUE KEY (`email`)
 					) ENGINE=InnoDB DEFAULT CHARSET=utf8;
