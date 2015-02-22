@@ -101,10 +101,6 @@ namespace devlog\database {
 
 			return $this->singlify($id);
 		}
-
-		public function requestSession($user) {
-			$userId = $this->userIdFromLogin($user);
-		}
 	} // class DatabaseAdapter
 } // namespace devlog\database
 
