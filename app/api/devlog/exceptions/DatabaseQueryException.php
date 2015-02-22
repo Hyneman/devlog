@@ -19,18 +19,22 @@
 //// ALONG WITH DEV/LOG. IF NOT, SEE <http://www.gnu.org/licenses/>.
 //
 
-use \devlog\exceptions\DatabaseQueryException as DatabaseQueryException;
-$devlog->route('GET /auth/@user', 'application/json', function($user) use ($devlog) {
-	$tokens = $devlog->database()->requestSession($user);
-	if($tokens === null) {
-		$devlog->error(401);
-		return;
-	}
+namespace devlog\exceptions {
+	use \Exception as Exception;
+	class DatabaseQueryException extends Exception {
+		private $databaseErrorMessage;
 
-	$devlog->json(200, [
-		'session' => $tokens->session,
-		'challenge' => $tokens->challenge
-	]);
-});
+		public function __construct($message = 'Database query failed.',
+			$databaseErrorMessage = '', Exception $previous = null)
+		{
+			parent::__construct($message, 0, $previous);
+			$this->databaseErrorMessage = $databaseErrorMessage;
+		}
+
+		public function getDatabaseError() {
+			return $this->databaseErrorMessage;
+		}
+	} // class DatabaseQueryException
+} // namespace devlog\exceptions
 
 ?>

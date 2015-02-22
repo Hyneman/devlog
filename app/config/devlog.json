@@ -4,7 +4,7 @@
 		"version": "0.1",
 		"mode": "dist",
 		"database": {
-			"charset": "utf-8",
+			"charset": "utf8",
 			"type": "mysql",
 			"server": "localhost",
 			"port": "",
@@ -12,6 +12,11 @@
 			"user": "",
 			"password": "",
 			"table-prefix": "devlog"
+		},
+		"system": {
+			"access": {
+				"session-idle": "86400"
+			}
 		}
 	}
 }
