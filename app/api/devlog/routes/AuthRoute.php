@@ -20,7 +20,7 @@
 //
 
 use \devlog\exceptions\DatabaseQueryException as DatabaseQueryException;
-$devlog->route('GET /auth/@user', 'application/json', function($user) use ($devlog) {
+$devlog->route('POST /auth/@user', 'application/json', function($user) use ($devlog) {
 	$tokens = $devlog->database()->requestSession($user);
 	if($tokens === null) {
 		$devlog->error(401);
