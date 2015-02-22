@@ -22,18 +22,28 @@
 namespace devlog {
 	use \flight\Engine as FlightEngine;
 	use \devlog\json\JsonConfig as JsonConfig;
+	use \devlog\database\DatabaseAdapter as DatabaseAdapter;
 
 	class ApplicationRouter {
 		private $config;
 		private $flight;
+		private $database;
 
-		public function __construct(JsonConfig $config, FlightEngine $flight) {
+		public function __construct(JsonConfig $config,
+			FlightEngine $flight,
+			DatabaseAdapter $database)
+		{
 			$this->config = $config;
 			$this->flight = $flight;
+			$this->database = $database;
 		}
 
 		public function config($name) {
 			return $this->config->get($name);
+		}
+
+		public function database() {
+			return $this->database;
 		}
 
 		public function route($url, $type, callable $callable) {

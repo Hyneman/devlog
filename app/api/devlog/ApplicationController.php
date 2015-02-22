@@ -23,16 +23,19 @@ namespace devlog {
 	use \DirectoryIterator as DirectoryIterator;
 	use \flight\Engine as FlightEngine;
 	use \devlog\json\JsonConfig as JsonConfig;
+	use \devlog\database\DatabaseAdapter as DatabaseAdapter;
 
 	class ApplicationController {
 		private $config;
 		private $flight;
+		private $database;
 		private $router;
 
 		public function __construct(JsonConfig $config) {
 			$this->config = $config;
 			$this->flight = new FlightEngine();
-			$this->router = new ApplicationRouter($this->config, $this->flight);
+			$this->database = new DatabaseAdapter($this->config);
+			$this->router = new ApplicationRouter($this->config, $this->flight, $this->database);
 			$this->overrideNotFound();
 			$this->loadRoutes();
 		}

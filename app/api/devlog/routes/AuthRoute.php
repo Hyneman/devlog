@@ -20,9 +20,9 @@
 //
 
 $devlog->route('GET /auth/@user', 'application/json', function($user) use ($devlog) {
-	$devlog->json(200, array(
+	$devlog->json(200, [
 		'challenge' => strtoupper('0000000000000000000000000000000000000000000000000000000000000000')
-	));
+	]);
 });
 
 ?>

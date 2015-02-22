@@ -10,7 +10,8 @@
 			"port": "",
 			"name": "",
 			"user": "",
-			"password": ""
+			"password": "",
+			"table-prefix": "devlog"
 		}
 	}
 }
