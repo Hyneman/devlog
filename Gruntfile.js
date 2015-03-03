@@ -488,7 +488,8 @@ module.exports = function (grunt) {
 		'copy',
 		'rev',
 		'usemin',
-		'shell:deployApi'
+		'shell:deployApi',
+		'mergeJson:devlogConfig'
 	]);
 
 	grunt.registerTask('default', [
