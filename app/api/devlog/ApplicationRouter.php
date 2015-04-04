@@ -47,7 +47,12 @@ namespace devlog {
 		}
 
 		public function route($url, $type, callable $callable) {
-			header('Content-Type: ' . $type);
+			// If the content type does not match the type required by the route,
+			// pass the execution to the next matching route.
+			if($this->flight->request()->type !== $type) {
+				return true;
+			}
+
 			$this->flight->route($url, $callable);
 		}
 
