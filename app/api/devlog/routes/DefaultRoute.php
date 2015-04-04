@@ -19,7 +19,7 @@
 //// ALONG WITH DEV/LOG. IF NOT, SEE <http://www.gnu.org/licenses/>.
 //
 
-$devlog->route('GET /', 'application/json', function() use ($devlog) {
+$devlog->route('GET /', '*', function() use ($devlog) {
 	$devlog->json(200, [
 		'api' => $devlog->config('devlog.api'),
 		'version' => $devlog->config('devlog.version')

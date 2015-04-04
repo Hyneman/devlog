@@ -49,7 +49,8 @@ namespace devlog {
 		public function route($url, $type, callable $callable) {
 			// If the content type does not match the type required by the route,
 			// pass the execution to the next matching route.
-			if($this->flight->request()->type !== $type) {
+			$requestType = $this->flight->request()->type;
+			if($requestType !== $type && $type !== '*') {
 				return true;
 			}
 
