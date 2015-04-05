@@ -21,6 +21,7 @@
 
 namespace devlog {
 	use \flight\Engine as FlightEngine;
+	use \devlog\system\String as String;
 	use \devlog\json\JsonConfig as JsonConfig;
 	use \devlog\database\DatabaseAdapter as DatabaseAdapter;
 
@@ -49,8 +50,12 @@ namespace devlog {
 		public function route($url, $type, callable $callable) {
 			// If the content type does not match the type required by the route,
 			// pass the execution to the next matching route.
-			$requestType = $this->flight->request()->type;
-			if($requestType !== $type && $type !== '*') {
+			$requestType = (new String($this->flight->request()->type))->trim()->lower();
+			$type = (new String($type))->trim()->lower();
+			$star = new String('*');
+			if(String::areEquals($requestType, $type) === false
+				&& String::areEquals($type, $star) === false)
+			{
 				return true;
 			}
 
