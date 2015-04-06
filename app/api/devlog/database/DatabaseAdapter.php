@@ -105,7 +105,7 @@ namespace devlog\database {
 			$usersTable = $this->qualifyTable('users');
 
 			$statement = $this->pdo()->prepare("INSERT INTO `$sessionsTable` (user_id, session, challenge, created_on, expires_on)"
-				. " SELECT id, :session, :challenge, :created_on, :expires_on FROM $usersTable WHERE email=:email");
+				. " SELECT id, :session, :challenge, :created_on, :expires_on FROM `$usersTable` WHERE email=:email");
 
 			$session = $this->token($login);
 			$challenge = $this->token($session);
