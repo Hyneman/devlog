@@ -25,6 +25,7 @@ namespace devlog\system\logging {
 
 	class LogFile {
 		private $handle;
+		private $defaultCategory;
 		private $levels;
 		private $lastLine;
 
@@ -34,6 +35,7 @@ namespace devlog\system\logging {
 				throw new RuntimeException('The log file could not be opened.');
 			}
 
+			$this->defaultCategory = '';
 			$this->levels = $levels;
 			$this->lastLine = '';
 		}
@@ -53,9 +55,14 @@ namespace devlog\system\logging {
 		}
 
 		private function formatMessage($message, $category, $level) {
+			$category = trim($category);
+			if(empty($category)) {
+				$category = $this->defaultCategory;
+			}
+
 			return '[' . $this->getTimeStamp() . ']'
 				. ' ' . LogLevel::nameOf($level)
-				. ' | ' . (empty(trim($category)) ? '' : '(' . $category . ') ')
+				. ' | ' . (empty($category) ? '' : '(' . $category . ') ')
 				. $this->sanitizeMessage($message)
 				. PHP_EOL;
 		}
@@ -73,11 +80,21 @@ namespace devlog\system\logging {
 			}
 		}
 
+		public function setDefaultCategory($category) {
+			$this->defaultCategory = trim($category);
+			return true;
+		}
+
+		public function getDefaultCategory() {
+			return $this->defaultCategory;
+		}
+
 		public function setLevels($levels) {
 			if(LogLevel::isValidValue($levels) === false)
 				return false;
 
 			$this->levels = $levels;
+			return true;
 		}
 
 		public function getLevels() {
