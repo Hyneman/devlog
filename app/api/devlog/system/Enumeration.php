@@ -21,6 +21,8 @@
 
 namespace devlog\system {
 	use \ReflectionClass as ReflectionClass;
+	use \InvalidArgumentException as InvalidArgumentException;
+
 	abstract class Enumeration {
 		private static $cache = [];
 
@@ -39,6 +41,20 @@ namespace devlog\system {
 
 		public static function isValidValue($value) {
 			return in_array($value, array_values(self::getConstants()), true);
+		}
+
+		public static function valueOf($name) {
+			if(self::isValidName($name) === false)
+				throw new InvalidArgumentException('Constant is not a member of the enumeration.');
+
+			return self::getConstants()[$name];
+		}
+
+		public static function nameOf($value) {
+			if(self::isValidValue($value) === false)
+				throw new InvalidArgumentException('Value has not been defined in the enumeration.');
+
+			return array_search($value, self::getConstants());
 		}
 	} // abstract class Enumeration
 } // namespace devlog\system
