@@ -295,6 +295,16 @@ module.exports = function (grunt) {
 				dst: '<%= yeoman.dist %>/config/devlog.json'
 			}
 		},
+		chmod: {
+			logs: {
+				files : [
+					{
+						'filename': '<%= yeoman.dist %>/api/logs',
+						'mode': '777'
+					}
+				]
+			}
+		},
 		copy: {
 			config: {
 				files: [
@@ -444,6 +454,24 @@ module.exports = function (grunt) {
 		grunt.file.write(this.data.dst, JSON.stringify(json, null, '\t'));
 	});
 
+	grunt.registerMultiTask('chmod', 'Set required permissions for files and directories.', function() {
+		var fs = require('fs');
+		var files = this.data.files;
+		for(var i = 0; i < files.length; i++) {
+			var file = files[i];
+			if(!file.filename || !file.mode) {
+				grunt.fail.warn('File definition for CHMOD is missing arguments.');
+			}
+
+			try {
+				fs.chmodSync(file.filename, file.mode);
+			}
+			catch(e) {
+				grunt.fail.warn('Could not CHMOD ' + file.mode + ' file ' + file.filename);
+			}
+		}
+	})
+
 	grunt.registerTask('server', function (target) {
 		grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
 		grunt.task.run(['serve:' + target]);
@@ -461,6 +489,7 @@ module.exports = function (grunt) {
 			'neuter:app',
 			'copy:fonts',
 			'mergeJson:devlogConfig',
+			'chmod:logs',
 			'connect:livereload',
 			'open',
 			'watch'
@@ -489,7 +518,8 @@ module.exports = function (grunt) {
 		'rev',
 		'usemin',
 		'shell:deployApi',
-		'mergeJson:devlogConfig'
+		'mergeJson:devlogConfig',
+		'chmod:logs'
 	]);
 
 	grunt.registerTask('default', [

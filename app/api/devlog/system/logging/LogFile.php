@@ -30,9 +30,10 @@ namespace devlog\system\logging {
 		private $lastLine;
 
 		public function __construct($filename, $levels = LogLevel::ALL) {
-			$this->handle = fopen($filename, 'a');
+			$this->handle = @fopen($filename, 'a');
 			if(!$this->handle) {
-				throw new RuntimeException('The log file could not be opened.');
+				throw new RuntimeException('The log file could not be opened.'
+					. (is_writable(dirname($filename)) ? '' : ' Directory is not writeable.'));
 			}
 
 			$this->defaultCategory = '';

@@ -19,17 +19,17 @@
 //// ALONG WITH DEV/LOG. IF NOT, SEE <http://www.gnu.org/licenses/>.
 //
 
-define('DEVLOG_TIMESTAMP', microtime(true));
-define('DEVLOG_SLASH', DIRECTORY_SEPARATOR);
-define('DEVLOG_BASE', dirname(__FILE__) . DIRECTORY_SEPARATOR . 'devlog');
-define('DEVLOG_LOGS', dirname(__FILE__) . DIRECTORY_SEPARATOR . 'logs');
-define('DEVLOG_ROUTES', DEVLOG_BASE . DIRECTORY_SEPARATOR . 'routes');
-define('DEVLOG_ERRORS', DEVLOG_BASE . DIRECTORY_SEPARATOR . 'errors');
+namespace devlog\system\logging {
+	use \devlog\system\logging\LogFile as LogFile;
+	function Logger($category = '') {
+		static $logFile = null;
+		if($logFile === null) {
+			$logFile = new LogFile(DEVLOG_LOGS . DIRECTORY_SEPARATOR . date('Y-m-d') . '.log');
+		}
 
-require_once './vendor/autoload.php';
-
-$config = \devlog\json\JsonConfig::fromFile('../config/devlog.json');
-$devlog = new devlog\ApplicationController($config);
-$devlog->service();
+		$logFile->setDefaultCategory($category);
+		return $logFile;
+	}
+} // namespace devlog\system\logging
 
 ?>

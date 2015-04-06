@@ -4,6 +4,9 @@
 		"catfan/medoo": "0.9.*"
 	},
 	"autoload": {
-		"psr-4": {"devlog\\": "devlog/"}
+		"psr-4": {"devlog\\": "devlog/"},
+		"files" : [
+			"devlog/system/logging/Logger.php"
+		]
 	}
 }
