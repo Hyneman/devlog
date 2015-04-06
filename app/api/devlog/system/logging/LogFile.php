@@ -52,15 +52,16 @@ namespace devlog\system\logging {
 			return mb_ereg_replace('\s+', ' ', $message);
 		}
 
-		private function formatMessage($message, $level) {
+		private function formatMessage($message, $category, $level) {
 			return '[' . $this->getTimeStamp() . ']'
 				. ' ' . LogLevel::nameOf($level)
-				. ' | ' . $this->sanitizeMessage($message)
+				. ' | ' . (empty(trim($category)) ? '' : '(' . $category . ') ')
+				. $this->sanitizeMessage($message)
 				. PHP_EOL;
 		}
 
-		private function logMessage($message, $level) {
-			$formatted = $this->formatMessage($message, $level);
+		private function logMessage($message, $category, $level) {
+			$formatted = $this->formatMessage($message, $category, $level);
 
 			if(fwrite($this->handle, $formatted) === false) {
 				return false;
@@ -87,35 +88,35 @@ namespace devlog\system\logging {
 			return $this->lastLine;
 		}
 
-		public function write($message, $level = LogLevel::ALL) {
+		public function write($message, $category = '', $level = LogLevel::ALL) {
 			if($this->levels & $level)
-				return $this->logMessage($message, $level);
+				return $this->logMessage($message, $category, $level);
 
 			return;
 		}
 
-		public function alert($message) {
-			return $this->write($message, LogLevel::ALERT);
+		public function alert($message, $category = '') {
+			return $this->write($message, $category, LogLevel::ALERT);
 		}
 
-		public function error($message) {
-			return $this->write($message, LogLevel::ERROR);
+		public function error($message, $category = '') {
+			return $this->write($message, $category, LogLevel::ERROR);
 		}
 
-		public function warning($message) {
-			return $this->write($message, LogLevel::WARNING);
+		public function warning($message, $category = '') {
+			return $this->write($message, $category, LogLevel::WARNING);
 		}
 
-		public function notice($message) {
-			return $this->write($message, LogLevel::NOTICE);
+		public function notice($message, $category = '') {
+			return $this->write($message, $category, LogLevel::NOTICE);
 		}
 
-		public function debug($message) {
-			return $this->write($message, LogLevel::DEBUG);
+		public function debug($message, $category = '') {
+			return $this->write($message, $category, LogLevel::DEBUG);
 		}
 
-		public function trace($message) {
-			return $this->write($message, LogLevel::TRACE);
+		public function trace($message, $category = '') {
+			return $this->write($message, $category, LogLevel::TRACE);
 		}
 	} // class LogFile
 } // namespace devlog\system\logging
