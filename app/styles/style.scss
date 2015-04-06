@@ -19,7 +19,9 @@
 //
 
 $icon-font-path: "../styles/fonts/";
+$fa-font-path: "../styles/fonts";
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap";
+@import "components-font-awesome/scss/font-awesome";
 
 html, body {
 	//
