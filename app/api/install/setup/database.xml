@@ -27,15 +27,15 @@
 			<query>
 				<![CDATA[
 					CREATE TABLE IF NOT EXISTS `[[@table-prefix@]]_users` (
-						`id` int(10) unsigned not null auto_increment,
-						`email` varchar(32) not null,
-						`password` char(64) not null,
-						`first_name` varchar(32) not null,
-						`last_name` varchar(32) not null,
-						`created_on` datetime not null,
-						`modified_on` datetime not null,
-						`admin` boolean not null,
-						`email_notify` boolean not null,
+						`id` int(10) UNSIGNED NOT NULL auto_increment,
+						`email` varchar(32) NOT NULL,
+						`password` char(64) NOT NULL,
+						`first_name` varchar(32) NOT NULL,
+						`last_name` varchar(32) NOT NULL,
+						`created_on` datetime NOT NULL,
+						`modified_on` datetime NOT NULL,
+						`admin` boolean NOT NULL,
+						`email_notify` boolean NOT NULL,
 						PRIMARY KEY (`id`),
 						UNIQUE KEY (`email`)
 					) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -44,12 +44,13 @@
 			<query>
 				<![CDATA[
 					CREATE TABLE IF NOT EXISTS `[[@table-prefix@]]_sessions` (
-						`user_id` int(10) unsigned not null,
-						`session` char (64) not null,
-						`challenge` char (64) not null,
-						`created_on` datetime not null,
-						`expires_on` datetime not null,
-						`authenticated` tinyint(1) not null default 0
+						`user_id` int(10) UNSIGNED NOT NULL,
+						`session` char (64) NOT NULL,
+						`challenge` char (64) NOT NULL,
+						`created_on` datetime NOT NULL,
+						`expires_on` datetime NOT NULL,
+						`authenticated` tinyint(1) NOT NULL DEFAULT '0',
+						PRIMARY KEY (`user_id`, `session`)
 					) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 				]]>
 			</query>
