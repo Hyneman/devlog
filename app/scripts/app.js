@@ -18,7 +18,7 @@
 //// ALONG WITH DEV/LOG. IF NOT, SEE <http://www.gnu.org/licenses/>.
 //
 
-var Devlog = window.Devlog = Ember.Application.create();
+var devlog = window.devlog = Ember.Application.create();
 
 require('scripts/controllers/*');
 require('scripts/store');

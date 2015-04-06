@@ -18,6 +18,6 @@
 //// ALONG WITH DEV/LOG. IF NOT, SEE <http://www.gnu.org/licenses/>.
 //
 
-Devlog.Router.map(function () {
+devlog.Router.map(function() {
 	//
 });

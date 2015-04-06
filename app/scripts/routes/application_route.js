@@ -18,8 +18,8 @@
 //// ALONG WITH DEV/LOG. IF NOT, SEE <http://www.gnu.org/licenses/>.
 //
 
-Devlog.ApplicationRoute = Ember.Route.extend({
-	model: function () {
-	    return [];
+devlog.ApplicationRoute = Ember.Route.extend({
+	model: function() {
+		return [];
 	}
 });

@@ -18,4 +18,4 @@
 //// ALONG WITH DEV/LOG. IF NOT, SEE <http://www.gnu.org/licenses/>.
 //
 
-Devlog.ApplicationAdapter = DS.FixtureAdapter;
+devlog.ApplicationAdapter = DS.FixtureAdapter;
