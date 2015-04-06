@@ -48,7 +48,8 @@
 						`session` char (64) not null,
 						`challenge` char (64) not null,
 						`created_on` datetime not null,
-						`expires_on` datetime not null
+						`expires_on` datetime not null,
+						`authenticated` tinyint(1) not null default 0
 					) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 				]]>
 			</query>
