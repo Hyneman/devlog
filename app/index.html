@@ -34,6 +34,13 @@
 		<!-- build:css styles/main.css -->
 		<link rel="stylesheet" href="styles/style.css">
 		<!-- endbuild -->
+
+		<!-- build:js(app) scripts/polyfill.js -->
+		<!--[if lt IE 9]>
+			<script src="bower_components/html5shiv/dist/html5shiv.js"></script>
+			<script src="bower_components/respond/dest/respond.src.js"></script>
+		<![endif]-->
+		<!-- endbuild -->
 	</head>
 	<body>
 		<!-- build:js(app) scripts/components.js -->

@@ -8,7 +8,9 @@
 		"bootstrap-sass-official": "3.3.4",
 		"components-font-awesome": "~4.3.0",
 		"metisMenu": "~2.0.0",
-		"perfect-scrollbar": "~0.6.2"
+		"perfect-scrollbar": "~0.6.2",
+		"html5shiv": "~3.7.2",
+		"respond": "~1.4.2"
 	},
 	"resolutions": {
 		"jquery": "~2.1.3"
