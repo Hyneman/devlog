@@ -20,9 +20,177 @@
 
 $icon-font-path: "../styles/fonts/";
 $fa-font-path: "../styles/fonts";
+
 @import "bootstrap-sass-official/assets/stylesheets/bootstrap";
 @import "components-font-awesome/scss/font-awesome";
 
-html, body {
-	//
+$devlog-m-threshold: 768px !default;
+
+$devlog-m-navbar-height: $navbar-height !default;
+$devlog-m-sidebar-width: 260px !default;
+$devlog-m-sidebar-indent: auto;
+$devlog-m-sidebar-padding: 16px;
+
+$devlog-m-menu-item-padding: 6px 24px 6px 16px;
+
+$devlog-m-content-padding: 16px !default;
+$devlog-m-content-min-height: 640px !default;
+
+$devlog-c-bg: #FFFFFF !default;
+$devlog-c-content-bg: #FFFFFF !default;
+$devlog-c-border-color: $navbar-default-border !default;
+
+
+// -----------------------------------------------------------------------------
+// General Tags.
+// -----------------------------------------------------------------------------
+
+body {
+	margin-top: $devlog-m-navbar-height;
+	background-color: $devlog-c-bg;
+}
+
+
+// -----------------------------------------------------------------------------
+// Bootstrap Overrides.
+// -----------------------------------------------------------------------------
+
+.dropdown-menu a .fa {
+	margin-right: 4px;
+}
+
+.dropdown-toggle .fa:first-child,
+.nav li .fa:first-child {
+	margin-right: 6px;
+}
+
+.navbar-collapse {
+	padding-right: 0;
+	padding-left: 0;
+}
+
+
+// -----------------------------------------------------------------------------
+// dev/log.
+// -----------------------------------------------------------------------------
+
+#wrapper {
+	width: 100%;
+	height: 100%;
+}
+
+#navigation {
+	margin-bottom: 0px;
+	border-bottom-color: $devlog-c-border-color;
+}
+
+#content {
+	padding: 0 $devlog-m-content-padding;
+	min-height: $devlog-m-content-min-height;
+	background-color: $devlog-c-content-bg;
+}
+
+#footer {
+	background-color: $devlog-c-content-bg;
+	margin: 0 $devlog-m-content-padding*-1;
+	padding: 0 $devlog-m-content-padding;
+}
+
+.navigation-container {
+	margin-right: 0px;
+
+	li {
+		display: inline-block;
+		width: 100%;
+
+		a {
+			padding: 16px;
+			min-height: $devlog-m-navbar-height;
+		}
+	}
+
+	.dropdown-menu li a {
+		padding: $devlog-m-menu-item-padding;
+		min-height: 0;
+	}
+}
+
+.sidebar-container {
+	ul {
+		li {
+			border-bottom: 1px solid $devlog-c-border-color;
+		}
+
+		li a {
+			padding: $devlog-m-sidebar-padding;
+			min-height: $devlog-m-navbar-height;
+		}
+	}
+
+	.arrow {
+		float: right;
+	}
+
+	.fa.arrow:before {
+		content: "\f104";
+	}
+
+	.active > a > .fa.arrow:before {
+		content: "\f107";
+	}
+
+	.sidebar-indent li {
+		border-bottom: none;
+
+		a {
+			padding-left: $devlog-m-sidebar-indent;
+		}
+	}
+
+	.sidebar-search {
+		padding: $devlog-m-sidebar-padding;
+		i.fa {
+			margin: 0 6px;
+			padding: 0;
+		}
+	}
+}
+
+@media(max-width:$devlog-m-threshold) {
+	body {
+		margin-top: 0;
+	}
+}
+
+@media(min-width:$devlog-m-threshold) {
+	#content {
+		margin: 0 0 0 $devlog-m-sidebar-width;
+		padding: 0 $devlog-m-content-padding*2;
+		border-left: 1px solid $devlog-c-border-color;
+	}
+
+	#footer {
+		margin: 0 $devlog-m-content-padding*-2;
+		padding: 0 $devlog-m-content-padding*2;
+	}
+
+	#sidebar {
+		position: relative;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	#sidebar-container {
+		position: fixed;
+		height:auto;
+		top: 0;
+		bottom: 0;
+		overflow: hidden;
+	}
+
+	.sidebar-container {
+		position: absolute;
+		width: $devlog-m-sidebar-width;
+		margin-top: $devlog-m-navbar-height;
+	}
 }
