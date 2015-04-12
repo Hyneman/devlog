@@ -71,12 +71,22 @@
 	</div>
 	{{!-- / Sidebar / --}}
 
-	{{!-- Content --}}
+	{{!-- Content Wrapper --}}
 	<div id="content-wrapper">
+		{{!-- Content  --}}
 		<div id="content">
 			{{outlet}}
 		</div>
-		{{partial 'application-footer'}}
+		{{!-- / Content / --}}
+
+		{{!-- Footer --}}
+		<footer id="footer" class="navbar-default">
+			<hr />
+			<div class="pull-right">
+				{{copyright}}
+			</div>
+		</footer>
+		{{!-- / Footer / --}}
 	</div>
-	{{!-- / Content / --}}
+	{{!-- / Content Wrapper / --}}
 </div>
