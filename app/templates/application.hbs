@@ -72,8 +72,10 @@
 	{{!-- / Sidebar / --}}
 
 	{{!-- Content --}}
-	<div id="content">
-		{{outlet}}
+	<div id="content-wrapper">
+		<div id="content">
+			{{outlet}}
+		</div>
 		{{partial 'application-footer'}}
 	</div>
 	{{!-- / Content / --}}

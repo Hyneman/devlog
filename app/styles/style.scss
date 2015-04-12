@@ -84,10 +84,13 @@ body {
 	border-bottom-color: $devlog-c-border-color;
 }
 
-#content {
+#content-wrapper {
 	padding: 0 $devlog-m-content-padding;
-	min-height: $devlog-m-content-min-height;
 	background-color: $devlog-c-content-bg;
+}
+
+#content {
+	min-height: $devlog-m-content-min-height;
 }
 
 #footer {
@@ -163,7 +166,7 @@ body {
 }
 
 @media(min-width:$devlog-m-threshold) {
-	#content {
+	#content-wrapper {
 		margin: 0 0 0 $devlog-m-sidebar-width;
 		padding: 0 $devlog-m-content-padding*2;
 		border-left: 1px solid $devlog-c-border-color;
