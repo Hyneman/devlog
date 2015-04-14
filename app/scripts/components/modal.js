@@ -18,30 +18,20 @@
 //// ALONG WITH DEV/LOG. IF NOT, SEE <http://www.gnu.org/licenses/>.
 //
 
-devlog.ApplicationRoute = Ember.Route.extend({
+devlog.ModalDialogComponent = Ember.Component.extend({
+	acceptTitle: 'Accept',
+	cancelTitle: 'Cancel',
+
 	actions: {
-		showModal: function(name, model) {
-			this.render(name, {
-				into: 'application',
-				outlet: 'modal',
-				model: model,
-
-				// Adjust controller according to the directory structure.
-				controller: name.replace('modals/', '')
-			});
-		},
-
-		hideModal: function() {
-			console.log("foo");
-			this.disconnectOutlet({
-				outlet: 'modal',
-				parentView: 'application'
-			});
+		accept: function() {
+			this.$('.modal').modal('hide');
+			this.sendAction('accept');
 		}
 	},
 
-	model: function() {
-		return [];
-	}
+	show: function() {
+		this.$('.modal').modal().on('hidden.bs.modal', function() {
+			this.sendAction('cancel');
+		}.bind(this));
+	}.on('didInsertElement')
 });
-

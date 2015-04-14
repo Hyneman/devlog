@@ -18,30 +18,10 @@
 //// ALONG WITH DEV/LOG. IF NOT, SEE <http://www.gnu.org/licenses/>.
 //
 
-devlog.ApplicationRoute = Ember.Route.extend({
+devlog.LoginModalController = Ember.ObjectController.extend({
 	actions: {
-		showModal: function(name, model) {
-			this.render(name, {
-				into: 'application',
-				outlet: 'modal',
-				model: model,
-
-				// Adjust controller according to the directory structure.
-				controller: name.replace('modals/', '')
-			});
-		},
-
-		hideModal: function() {
-			console.log("foo");
-			this.disconnectOutlet({
-				outlet: 'modal',
-				parentView: 'application'
-			});
+		login: function() {
+			//
 		}
-	},
-
-	model: function() {
-		return [];
 	}
 });
-
