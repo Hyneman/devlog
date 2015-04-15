@@ -18,17 +18,24 @@
 //// ALONG WITH DEV/LOG. IF NOT, SEE <http://www.gnu.org/licenses/>.
 //
 
-devlog.LoginModalController = Ember.ObjectController.extend({
-	needs: ['session'],
-	email: null,
-	password: null,
+devlog.LocalStorage = Ember.Object.extend({
+	get: function(name) {
+		if(Ember.isBlank(name))
+			return null;
 
-	actions: {
-		login: function() {
-			this.get('controllers.session').login({
-				email: this.get('email'),
-				password: this.get('password')
-			});
-		}
+		var value = localStorage[name];
+		if(Ember.isNone(value))
+			return value;
+
+		return JSON.parse(value);
+	},
+
+	set: function(name, value) {
+		if(Ember.isBlank(name))
+			return false;
+
+		localStorage[name] = JSON.stringify(value);
+		return true;
 	}
 });
+

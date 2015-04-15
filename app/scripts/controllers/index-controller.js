@@ -18,17 +18,6 @@
 //// ALONG WITH DEV/LOG. IF NOT, SEE <http://www.gnu.org/licenses/>.
 //
 
-devlog.LoginModalController = Ember.ObjectController.extend({
-	needs: ['session'],
-	email: null,
-	password: null,
-
-	actions: {
-		login: function() {
-			this.get('controllers.session').login({
-				email: this.get('email'),
-				password: this.get('password')
-			});
-		}
-	}
+devlog.IndexController = Ember.ObjectController.extend({
+	needs: ['session']
 });

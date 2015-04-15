@@ -28,4 +28,5 @@ require('scripts/components/*');
 require('scripts/views/*');
 require('scripts/router');
 
-require('scripts/system/ready');
+require('scripts/objects/*');
+require('scripts/system/*');

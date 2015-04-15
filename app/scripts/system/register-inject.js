@@ -18,17 +18,21 @@
 //// ALONG WITH DEV/LOG. IF NOT, SEE <http://www.gnu.org/licenses/>.
 //
 
-devlog.LoginModalController = Ember.ObjectController.extend({
-	needs: ['session'],
-	email: null,
-	password: null,
-
-	actions: {
-		login: function() {
-			this.get('controllers.session').login({
-				email: this.get('email'),
-				password: this.get('password')
+Ember.onLoad('Ember.Application', function(Application) {
+	Application.initializer({
+		name: 'registerLocalStorage',
+			initialize: function(container, application) {
+			application.register('local-storage:main', application.LocalStorage, {
+				singleton: true
 			});
 		}
-	}
+	});
+
+	Application.initializer({
+		name: 'injectLocalStorage',
+		initialize: function(container, application) {
+			application.inject('controller', 'storage', 'local-storage:main');
+			application.inject('route', 'storage', 'local-storage:main');
+		}
+	});
 });
