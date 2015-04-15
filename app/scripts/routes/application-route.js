@@ -32,7 +32,6 @@ devlog.ApplicationRoute = Ember.Route.extend({
 		},
 
 		hideModal: function() {
-			console.log("foo");
 			this.disconnectOutlet({
 				outlet: 'modal',
 				parentView: 'application'
