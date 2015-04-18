@@ -19,6 +19,7 @@
 //
 
 devlog.SessionController = Ember.ObjectController.extend({
+	needs: ['application'],
 	token: null,
 
 	init: function() {

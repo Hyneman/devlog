@@ -21,5 +21,23 @@
 devlog.ApplicationController = Ember.ObjectController.extend({
 	name: 'devlog',
 	version: '0.1',
-	copyright: 'Copyright © 2015 by Silent Byte'
+	copyright: 'Copyright © 2015 by Silent Byte',
+
+	_loading: 0,
+
+	startLoading: function() {
+		var counter = this.get('_loading');
+		if(counter === 0)
+			NProgress.start();
+
+		this.set('_loading', counter + 1);
+	},
+
+	stopLoading: function() {
+		var counter = Math.max(0, this.get('_loading'));
+		if(counter === 1)
+			NProgress.done();
+
+		this.set('_loading', counter - 1);
+	}
 });
