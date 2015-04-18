@@ -30,8 +30,8 @@
 			{{#link-to 'index' class="navbar-brand"}}&lt;dev/log&gt;{{/link-to}}
 		</div>
 		<ul class="nav navigation-container navbar-right">
-			<li class="dropdown">
-				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+			<li {{bind-attr class=":dropdown disabled:disabled"}}>
+				<a class="dropdown-toggle" {{bind-attr data-toggle="disabled:dropdown"}} href="#">
 					<i class="fa fa-gear fa-fw"></i><i class="fa fa-caret-down"></i>
 				</a>
 				<ul class="dropdown-menu" role="menu">
@@ -50,19 +50,21 @@
 			<ul class="nav">
 				{{!-- Search --}}
 				<li class="sidebar-search">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search...">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button">
-								<i class="fa fa-search"></i>
-							</button>
-						</span>
-					</div>
+					<fieldset {{bind-attr disabled=disabled}}>
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search...">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button">
+									<i class="fa fa-search"></i>
+								</button>
+							</span>
+						</div>
+					</fieldset>
 				</li>
 				{{!-- / Search / --}}
 
 				{{!-- Navigation Items --}}
-				<li>
+				<li {{bind-attr class="disabled:disabled"}}>
 					{{#link-to 'index'}}<i class="fa fa-dashboard fa-fw"></i>Overview{{/link-to}}
 				</li>
 				{{!-- / Navigation Items / --}}

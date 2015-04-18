@@ -24,6 +24,7 @@ devlog.ApplicationController = Ember.ObjectController.extend({
 	copyright: 'Copyright © 2015 by Silent Byte',
 
 	_loading: 0,
+	disabled : true,
 
 	startLoading: function() {
 		var counter = this.get('_loading');
@@ -40,4 +41,5 @@ devlog.ApplicationController = Ember.ObjectController.extend({
 
 		this.set('_loading', counter - 1);
 	}
+
 });
