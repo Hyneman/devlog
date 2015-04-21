@@ -19,12 +19,24 @@
 //
 
 devlog.ApplicationController = Ember.ObjectController.extend({
+	needs: ['session'],
 	name: 'devlog',
 	version: '0.1',
 	copyright: 'Copyright © 2015 by Silent Byte',
 
 	_loading: 0,
 	disabled : true,
+
+	init: function() {
+		var sessionController = this.get('controllers.session');
+		if(sessionController.hasSession())
+			this.set('disabled', false);
+		else {
+			Ember.run.next(this, function() {
+				this.send('showModal', 'modals/login-modal');
+			});
+		}
+	},
 
 	startLoading: function() {
 		var counter = this.get('_loading');

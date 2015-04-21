@@ -45,6 +45,10 @@ devlog.SessionController = Ember.ObjectController.extend({
 		});
 	},
 
+	hasSession: function() {
+		return !Ember.isBlank(this.get('token'));
+	},
+
 	login: function(credentials) {
 		//
 	}
